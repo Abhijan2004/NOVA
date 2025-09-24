@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVA JOURNAL // CYBERPUNK TERMINAL</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-cyan: #00ffff;
+            --neon-pink: #ff0080;
+            --neon-green: #00ff41;
+            --neon-purple: #8000ff;
+            --neon-orange: #ff8000;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --grid-color: rgba(0, 255, 255, 0.1);
+            --text-color: #ffffff;
+            --text-secondary: #b3b3b3;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: var(--text-color);
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background grid */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Glitch effect for headers */
+        @keyframes glitch {
+            0% { text-shadow: 0 0 5px var(--neon-cyan); }
+            25% { text-shadow: -2px 0 var(--neon-pink), 2px 0 var(--neon-cyan); }
+            50% { text-shadow: 0 0 10px var(--neon-green); }
+            75% { text-shadow: 2px 0 var(--neon-orange), -2px 0 var(--neon-purple); }
+            100% { text-shadow: 0 0 5px var(--neon-cyan); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--neon-cyan);
+            padding-bottom: 20px;
+            background: linear-gradient(45deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 128, 0.1));
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: glitch 2s infinite;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Auth Section */
+        .auth-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .auth-card {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(128, 0, 255, 0.1));
+            border: 1px solid var(--neon-cyan);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .auth-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.3s ease;
+        }
+
+        .auth-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .auth-card:hover::before {
+            animation: shimmer 1s ease-in-out;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid rgba(0, 255, 255, 0.5);
+            border-radius: 8px;
+            color: var(--text-color);
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .cyber-btn {
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
+            border: none;
+            padding: 15px 30px;
+            color: var(--dark-bg);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 8px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .cyber-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+        }
+
+        .cyber-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(90deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 128, 0.1));
+            border-radius: 10px;
+            border: 1px solid var(--neon-pink);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-pink));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .weather-widget {
+            background: rgba(0, 255, 65, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--neon-green);
+            text-align: center;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        /* Journal Entry Form */
+        .journal-form {
+            background: linear-gradient(135deg, rgba(255, 0, 128, 0.1), rgba(0, 255, 255, 0.1));
+            border: 1px solid var(--neon-pink);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(20px);
+        }
+
+        .journal-form h3 {
+            font-family: 'Orbitron', monospace;
+            color: var(--neon-pink);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .journal-form textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid rgba(255, 0, 128, 0.5);
+            border-radius: 8px;
+            color: var(--text-color);
+            font-size: 16px;
+            font-family: 'Rajdhani', sans-serif;
+            resize: vertical;
+            transition: all 0.3s ease;
+        }
+
+        .journal-form textarea:focus {
+            outline: none;
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 20px rgba(255, 0, 128, 0.3);
+        }
+
+        /* Journal Entries Grid */
+        .entries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .entry-card {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(128, 0, 255, 0.1));
+            border: 1px solid var(--neon-green);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .entry-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 255, 65, 0.2);
+            border-color: var(--neon-cyan);
+        }
+
+        .entry-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .entry-card:hover::before {
+            left: 100%;
+        }
+
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .entry-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            color: var(--neon-green);
+            font-weight: 600;
+        }
+
+        .entry-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .entry-content {
+            color: var(--text-color);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .entry-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 8px 15px;
+            border: 1px solid;
+            background: transparent;
+            color: var(--text-color);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .edit-btn {
+            border-color: var(--neon-orange);
+            color: var(--neon-orange);
+        }
+
+        .edit-btn:hover {
+            background: var(--neon-orange);
+            color: var(--dark-bg);
+            box-shadow: 0 0 15px rgba(255, 128, 0, 0.4);
+        }
+
+        .delete-btn {
+            border-color: var(--neon-pink);
+            color: var(--neon-pink);
+        }
+
+        .delete-btn:hover {
+            background: var(--neon-pink);
+            color: var(--dark-bg);
+            box-shadow: 0 0 15px rgba(255, 0, 128, 0.4);
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--neon-cyan);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: var(--text-color);
+            font-weight: 600;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: all 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: linear-gradient(45deg, rgba(0, 255, 65, 0.9), rgba(0, 255, 65, 0.7));
+            border: 1px solid var(--neon-green);
+        }
+
+        .notification.error {
+            background: linear-gradient(45deg, rgba(255, 0, 128, 0.9), rgba(255, 0, 128, 0.7));
+            border: 1px solid var(--neon-pink);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(128, 0, 255, 0.1));
+            margin: 5% auto;
+            padding: 30px;
+            border: 2px solid var(--neon-cyan);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            backdrop-filter: blur(20px);
+        }
+
+        .close {
+            color: var(--neon-pink);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close:hover {
+            color: var(--text-color);
+            text-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .auth-section {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .controls {
+                justify-content: center;
+            }
+
+            .entries-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Header -->
+    <header class="header">
+        <h1>Nova Journal</h1>
+        <p class="subtitle">// Cyberpunk Terminal Interface //</p>
+    </header>
+
+    <!-- Authentication Section -->
+    <section id="auth-section" class="auth-section">
+        <!-- Login Form -->
+        <div class="auth-card">
+            <h3 style="color: var(--neon-cyan); font-family: 'Orbitron', monospace; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px;">
+                <i class="fas fa-sign-in-alt"></i> Access Terminal
+            </h3>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-username">Username</label>
+                    <input type="text" id="login-username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" name="password" required>
+                </div>
+                <button type="submit" class="cyber-btn" style="width: 100%;">
+                    <i class="fas fa-key"></i> Initialize Login
+                </button>
+            </form>
+        </div>
+
+        <!-- Register Form -->
+        <div class="auth-card">
+            <h3 style="color: var(--neon-pink); font-family: 'Orbitron', monospace; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px;">
+                <i class="fas fa-user-plus"></i> New User Registration
+            </h3>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="register-username">Username</label>
+                    <input type="text" id="register-username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" name="password" required>
+                </div>
+                <button type="submit" class="cyber-btn" style="width: 100%; background: linear-gradient(45deg, var(--neon-pink), var(--neon-orange));">
+                    <i class="fas fa-rocket"></i> Create Account
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Dashboard -->
+    <section id="dashboard" class="dashboard">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div>
+                    <h3 id="welcome-message" style="color: var(--neon-cyan); font-family: 'Orbitron', monospace;">Welcome, User</h3>
+                    <p id="weather-info" style="color: var(--text-secondary);">Loading weather...</p>
+                </div>
+            </div>
+            <div class="weather-widget">
+                <i class="fas fa-cloud-sun"></i>
+                <div id="weather-display">--°C</div>
+            </div>
+            <button id="logout-btn" class="cyber-btn" style="background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button id="new-entry-btn" class="cyber-btn">
+                <i class="fas fa-plus"></i> New Entry
+            </button>
+            <button id="refresh-btn" class="cyber-btn" style="background: linear-gradient(45deg, var(--neon-green), var(--neon-cyan));">
+                <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+        </div>
+
+        <!-- Journal Entry Form -->
+        <div id="journal-form" class="journal-form hidden">
+            <h3><i class="fas fa-edit"></i> Create New Entry</h3>
+            <form id="entry-form">
+                <div class="form-group">
+                    <label for="entry-title">Entry Title</label>
+                    <input type="text" id="entry-title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="entry-content">Content</label>
+                    <textarea id="entry-content" name="content" placeholder="Write your thoughts..." required></textarea>
+                </div>
+                <div style="display: flex; gap: 15px;">
+                    <button type="submit" class="cyber-btn">
+                        <i class="fas fa-save"></i> Save Entry
+                    </button>
+                    <button type="button" id="cancel-entry" class="cyber-btn" style="background: linear-gradient(45deg, var(--neon-pink), var(--neon-orange));">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Journal Entries -->
+        <div id="entries-container" class="entries-grid">
+            <!-- Entries will be loaded here -->
+        </div>
+    </section>
+</div>
+
+<!-- Edit Modal -->
+<div id="edit-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3 style="color: var(--neon-orange); font-family: 'Orbitron', monospace; margin-bottom: 20px; text-transform: uppercase;">
+            <i class="fas fa-edit"></i> Edit Entry
+        </h3>
+        <form id="edit-form">
+            <div class="form-group">
+                <label for="edit-title">Title</label>
+                <input type="text" id="edit-title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-content">Content</label>
+                <textarea id="edit-content" name="content" required style="min-height: 200px;"></textarea>
+            </div>
+            <div style="display: flex; gap: 15px;">
+                <button type="submit" class="cyber-btn">
+                    <i class="fas fa-save"></i> Update Entry
+                </button>
+                <button type="button" class="close cyber-btn" style="background: linear-gradient(45deg, var(--neon-pink), var(--neon-orange));">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Configuration
+    const API_BASE_URL = 'http://localhost:8080'; // Adjust to your backend URL
+    let currentUser = null;
+    let authToken = null;
+    let currentEditingId = null;
+
+    // DOM Elements
+    const authSection = document.getElementById('auth-section');
+    const dashboard = document.getElementById('dashboard');
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const journalForm = document.getElementById('journal-form');
+    const entryForm = document.getElementById('entry-form');
+    const entriesContainer = document.getElementById('entries-container');
+    const welcomeMessage = document.getElementById('welcome-message');
+    const weatherInfo = document.getElementById('weather-info');
+    const weatherDisplay = document.getElementById('weather-display');
+    const editModal = document.getElementById('edit-modal');
+    const editForm = document.getElementById('edit-form');
+
+    // Utility Functions
+    function showNotification(message, type = 'success') {
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+
+        setTimeout(() => notification.classList.add('show'), 100);
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => document.body.removeChild(notification), 300);
+        }, 3000);
+    }
+
+    function createAuthHeader() {
+        if (currentUser && currentUser.password) {
+            const credentials = btoa(`${currentUser.userName}:${currentUser.password}`);
+            return { 'Authorization': `Basic ${credentials}` };
+        }
+        return {};
+    }
+
+    async function apiRequest(url, options = {}) {
+        try {
+            const response = await fetch(`${API_BASE_URL}${url}`, {
+                ...options,
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...createAuthHeader(),
+                    ...options.headers
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                return await response.json();
+            } else {
+                return await response.text();
+            }
+        } catch (error) {
+            console.error('API Error:', error);
+            throw error;
+        }
+    }
+
+    // Authentication
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(loginForm);
+        const username = formData.get('username');
+        const password = formData.get('password');
+
+        try {
+            // Store credentials for basic auth
+            currentUser = { userName: username, password: password };
+
+            // Test authentication by calling a protected endpoint
+            const greeting = await apiRequest('/user');
+
+            welcomeMessage.textContent = `Welcome, ${username}`;
+            showNotification('Login successful!', 'success');
+
+            authSection.style.display = 'none';
+            dashboard.style.display = 'block';
+
+            loadUserData();
+            loadJournalEntries();
+
+        } catch (error) {
+            showNotification('Login failed. Please check your credentials.', 'error');
+            currentUser = null;
+        }
+    });
+
+    registerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(registerForm);
+        const userData = {
+            userName: formData.get('username'),
+            password: formData.get('password')
+        };
+
+        try {
+            await apiRequest('/public/create-user', {
+                method: 'POST',
+                body: JSON.stringify(userData)
+            });
+
+            showNotification('Account created successfully! Please login.', 'success');
+            registerForm.reset();
+
+        } catch (error) {
+            showNotification('Registration failed. Username might already exist.', 'error');
+        }
+    });
+
+    // Load user data including weather
+    async function loadUserData() {
+        try {
+            const greeting = await apiRequest('/user');
+            weatherInfo.textContent = greeting;
+
+            // Extract temperature from greeting if available
+            const tempMatch = greeting.match(/feels like ([\d.]+)/);
+            if (tempMatch) {
+                weatherDisplay.textContent = `${tempMatch[1]}°C`;
+            }
+
+        } catch (error) {
+            console.error('Failed to load user data:', error);
+            weatherInfo.textContent = `Hello, ${currentUser.userName}`;
+        }
+    }
+
+    // Journal Entry Management
+    async function loadJournalEntries() {
+        try {
+            const entries = await apiRequest('/journal');
+            displayEntries(entries);
+        } catch (error) {
+            console.error('Failed to load entries:', error);
+            entriesContainer.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">Failed to load entries</p>';
+        }
+    }
+
+    function displayEntries(entries) {
+        if (!entries || entries.length === 0) {
+            entriesContainer.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                    <i class="fas fa-journal-whills" style="font-size: 3rem; color: var(--neon-cyan); margin-bottom: 20px;"></i>
+                    <h3 style="color: var(--text-secondary); font-family: 'Orbitron', monospace;">No entries found</h3>
+                    <p style="color: var(--text-secondary);">Start writing your first journal entry!</p>
+                </div>
+            `;
+            return;
+        }
+
+        entriesContainer.innerHTML = entries.map(entry => {
+            const date = new Date(entry.date);
+            const formattedDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+
+            return `
+                <div class="entry-card" data-id="${entry.id}">
+                    <div class="entry-header">
+                        <h4 class="entry-title">${entry.title}</h4>
+                        <span class="entry-date">${formattedDate}</span>
+                    </div>
+                    <div class="entry-content">${entry.content}</div>
+                    <div class="entry-actions">
+                        <button class="action-btn edit-btn" onclick="editEntry('${entry.id}', '${entry.title}', '${entry.content}')">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deleteEntry('${entry.id}')">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // Create new journal entry
+    entryForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(entryForm);
+        const entryData = {
+            title: formData.get('title'),
+            content: formData.get('content')
+        };
+
+        try {
+            await apiRequest('/journal', {
+                method: 'POST',
+                body: JSON.stringify(entryData)
+            });
+
+            showNotification('Entry created successfully!', 'success');
+            entryForm.reset();
+            journalForm.classList.add('hidden');
+            loadJournalEntries();
+
+        } catch (error) {
+            showNotification('Failed to create entry', 'error');
+        }
+    });
+
+    // Edit entry function
+    function editEntry(id, title, content) {
+        currentEditingId = id;
+        document.getElementById('edit-title').value = title;
+        document.getElementById('edit-content').value = content;
+        editModal.style.display = 'block';
+    }
+
+    // Update entry
+    editForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(editForm);
+        const entryData = {
+            title: formData.get('title'),
+            content: formData.get('content')
+        };
+
+        try {
+            await apiRequest(`/journal/id/${currentEditingId}`, {
+                method: 'PUT',
+                body: JSON.stringify(entryData)
+            });
+
+            showNotification('Entry updated successfully!', 'success');
+            editModal.style.display = 'none';
+            loadJournalEntries();
+
+        } catch (error) {
+            showNotification('Failed to update entry', 'error');
+        }
+    });
+
+    // Delete entry function
+    async function deleteEntry(id) {
+        if (confirm('Are you sure you want to delete this entry? This action cannot be undone.')) {
+            try {
+                await apiRequest(`/journal/id/${id}`, {
+                    method: 'DELETE'
+                });
+
+                showNotification('Entry deleted successfully!', 'success');
+                loadJournalEntries();
+
+            } catch (error) {
+                showNotification('Failed to delete entry', 'error');
+            }
+        }
+    }
+
+    // Event Listeners
+    document.getElementById('new-entry-btn').addEventListener('click', () => {
+        journalForm.classList.toggle('hidden');
+    });
+
+    document.getElementById('cancel-entry').addEventListener('click', () => {
+        journalForm.classList.add('hidden');
+        entryForm.reset();
+    });
+
+    document.getElementById('refresh-btn').addEventListener('click', () => {
+        const refreshIcon = document.querySelector('#refresh-btn i');
+        refreshIcon.style.animation = 'spin 1s linear';
+        loadJournalEntries();
+        loadUserData();
+        setTimeout(() => {
+            refreshIcon.style.animation = '';
+        }, 1000);
+    });
+
+    document.getElementById('logout-btn').addEventListener('click', () => {
+        if (confirm('Are you sure you want to logout?')) {
+            currentUser = null;
+            authToken = null;
+            authSection.style.display = 'grid';
+            dashboard.style.display = 'none';
+            loginForm.reset();
+            registerForm.reset();
+            showNotification('Logged out successfully!', 'success');
+        }
+    });
+
+    // Modal controls
+    document.querySelectorAll('.close').forEach(closeBtn => {
+        closeBtn.addEventListener('click', () => {
+            editModal.style.display = 'none';
+        });
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === editModal) {
+            editModal.style.display = 'none';
+        }
+    });
+
+    // Add some cyber effects
+    document.addEventListener('DOMContentLoaded', () => {
+        // Add glitch effect to random elements occasionally
+        setInterval(() => {
+            const elements = document.querySelectorAll('.entry-title, .auth-card h3, .header h1');
+            const randomElement = elements[Math.floor(Math.random() * elements.length)];
+            if (randomElement) {
+                randomElement.style.animation = 'glitch 0.5s ease-in-out';
+                setTimeout(() => {
+                    randomElement.style.animation = '';
+                }, 500);
+            }
+        }, 10000);
+
+        // Add typing effect to welcome message
+        function typeWriter(element, text, speed = 50) {
+            element.innerHTML = '';
+            let i = 0;
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Particle effect for background (simplified)
+        function createParticles() {
+            const particleContainer = document.createElement('div');
+            particleContainer.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: -1;
+            `;
+            document.body.appendChild(particleContainer);
+
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: absolute;
+                    width: 2px;
+                    height: 2px;
+                    background: var(--neon-cyan);
+                    opacity: 0.3;
+                    animation: float ${Math.random() * 10 + 10}s linear infinite;
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    box-shadow: 0 0 6px var(--neon-cyan);
+                `;
+                particleContainer.appendChild(particle);
+            }
+
+            // Add CSS animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes float {
+                    0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+                    33% { transform: translateY(-10px) translateX(10px) rotate(120deg); }
+                    66% { transform: translateY(5px) translateX(-5px) rotate(240deg); }
+                    100% { transform: translateY(0px) translateX(0px) rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        createParticles();
+
+        // Add neon glow effect to buttons on hover
+        document.querySelectorAll('.cyber-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.textShadow = '0 0 10px currentColor';
+            });
+            btn.addEventListener('mouseleave', function() {
+                this.style.textShadow = '';
+            });
+        });
+
+        // Add scan line effect
+        const scanLine = document.createElement('div');
+        scanLine.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+            opacity: 0.5;
+            animation: scanLine 4s linear infinite;
+            z-index: 1000;
+            pointer-events: none;
+        `;
+        document.body.appendChild(scanLine);
+
+        const scanStyle = document.createElement('style');
+        scanStyle.textContent = `
+            @keyframes scanLine {
+                0% { top: -2px; }
+                100% { top: 100vh; }
+            }
+        `;
+        document.head.appendChild(scanStyle);
+    });
+
+    // Add some console styling for fun
+    console.log(`
+    %c
+╔══════════════════════════════════════╗
+║        NOVA JOURNAL INITIALIZED       ║
+║            CYBERPUNK MODE             ║
+║          >> SYSTEM ONLINE <<          ║
+╚══════════════════════════════════════╝
+    `,
+    'color: #00ffff; font-family: monospace; font-size: 12px; background: #0a0a0a; padding: 10px;'
+    );
+</script>
+</body>
+</html>
