@@ -1,1 +1,1 @@
-const API_BASE_URL = 'http://localhost:8080';
+const API_BASE_URL = 'clever-entremet-6f4a37.netlify.app';
