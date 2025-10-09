@@ -23,6 +23,7 @@ record WeatherResponce(Current current) {}
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "*") 
 @Tag(name = "User APIs", description = "Read, Update & Delete User")
 public class UserController {
 
@@ -87,3 +88,4 @@ public class UserController {
         return new ResponseEntity<>("Hi " + authentication.getName() + greeting, HttpStatus.OK);
     }
 }
+
