@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
+@CrossOrigin(origins = "*") 
 public class HealthCheck {
 
     // special type of components
@@ -12,3 +13,4 @@ public class HealthCheck {
         return"ok";
     }
 }
+
