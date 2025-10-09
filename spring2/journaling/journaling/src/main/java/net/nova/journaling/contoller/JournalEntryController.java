@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/journal")
+@CrossOrigin(origins = "*") 
 public class JournalEntryController {
 
     @Autowired
@@ -104,4 +105,5 @@ public class JournalEntryController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
 }
