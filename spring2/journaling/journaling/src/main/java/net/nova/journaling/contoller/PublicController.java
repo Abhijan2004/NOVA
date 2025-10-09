@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/public")
+@CrossOrigin(origins = "*") 
 public class PublicController {
 
     @Autowired
@@ -33,3 +34,4 @@ public class PublicController {
         }
     }
 }
+
