@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
+@CrossOrigin(origins = "*") 
 public class AdminController {
 
     @Autowired
@@ -30,4 +31,5 @@ public class AdminController {
         userService.saveAdmin(user);
         return new ResponseEntity<>("Admin user created successfully", HttpStatus.CREATED);
     }
+
 }
