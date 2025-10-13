@@ -1,1 +1,1 @@
-const API_BASE_URL = 'clever-entremet-6f4a37.netlify.app';
+const API_BASE_URL = 'nova-production-0884.up.railway.app';
