@@ -13,6 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import net.nova.journaling.Response.WeatherResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 // This placeholder is necessary to resolve the "Cannot resolve symbol WeatherResponse" error
 // shown in your screenshot. In a real application, this would be a separate class
@@ -48,8 +50,10 @@ public class UserController {
     public ResponseEntity<?> updateUser(@RequestBody UserUpdateDto userUpdateDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
-
+        
         User userInDb = userService.findByUserName(userName);
+
+        
 
         if (userInDb == null) {
             return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
@@ -88,4 +92,5 @@ public class UserController {
         return new ResponseEntity<>("Hi " + authentication.getName() + greeting, HttpStatus.OK);
     }
 }
+
 
