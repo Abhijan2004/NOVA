@@ -77,7 +77,8 @@ const API_BASE_URL = 'https://nova-production-0884.up.railway.app';
         e.preventDefault();
         const formData = new FormData(loginForm);
         const username = formData.get('username');
-        const password = formData.get('password');                           
+        const password = formData.get('password'); 
+      
           currentUser = { userName: username, password: password };
 
         try {
@@ -85,7 +86,7 @@ const API_BASE_URL = 'https://nova-production-0884.up.railway.app';
           
             // Test authentication by calling a protected endpoint
             const greeting = await apiRequest('/user');
-
+            currentUser.password = null; 
             welcomeMessage.textContent = `Welcome, ${username}`;
             showNotification('Login successful!', 'success');
 
