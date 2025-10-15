@@ -56,6 +56,10 @@ const API_BASE_URL = 'https://nova-production-0884.up.railway.app';
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
+          if (response.status === 204) {
+    return null; // Stop execution, return null, as the request was successful but had no content.
+}
+
             const contentType = response.headers.get('content-type');
             if (contentType && contentType.includes('application/json')) {
                 return await response.json();
